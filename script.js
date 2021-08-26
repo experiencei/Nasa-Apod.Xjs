@@ -5,6 +5,10 @@ const count = 10;
 const apiKey = 'DEMO_KEY';
 const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&count=${count}`;
 
+
+let resultsArray = [];
+let favorites = {}; 
+
 function createDOMNodes(page) {
     // Load ResultsArray or Favorites
     const currentArray = page === 'results' ? resultsArray : Object.values(favorites);
@@ -76,6 +80,23 @@ async function getNasaPictures() {
     } catch (error) {
       // Catch Error Here
     }
+  }
+
+  // Add result to Favorites
+function saveFavorite(itemUrl) {
+    // Loop through Results Array to select Favorite
+    resultsArray.forEach((item) => {
+      if (item.url.includes(itemUrl) && !favorites[itemUrl]) {
+        favorites[itemUrl] = item;
+        // Show Save Confirmation for 2 seconds
+        saveConfirmed.hidden = false;
+        setTimeout(() => {
+          saveConfirmed.hidden = true;
+        }, 2000);
+        // Set Favorites in localStorage
+        localStorage.setItem('nasaFavorites', JSON.stringify(favorites));
+      }
+    });
   }
 
   // On Load
