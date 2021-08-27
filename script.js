@@ -15,9 +15,7 @@ let resultsArray = [];
 let favorites = {}; 
 
 function createDOMNodes(page) {
-    // Load ResultsArray or Favorites
-    const currentArray = page === 'results' ? resultsArray : Object.values(favorites);
-    currentArray.forEach((result) => {
+    
       // Card Container
       const card = document.createElement('div');
       card.classList.add('card');
@@ -68,7 +66,7 @@ function createDOMNodes(page) {
       link.appendChild(image);
       card.append(link, cardBody);
       imagesContainer.appendChild(card);
-    });
+    
   }
 
 
