@@ -15,7 +15,9 @@ let resultsArray = [];
 let favorites = {}; 
 
 function createDOMNodes(page) {
-    
+    // Load ResultsArray or Favorites
+    const currentArray = page === 'results' ? resultsArray : Object.values(favorites);
+    currentArray.forEach((result) => {
       // Card Container
       const card = document.createElement('div');
       card.classList.add('card');
@@ -66,10 +68,19 @@ function createDOMNodes(page) {
       link.appendChild(image);
       card.append(link, cardBody);
       imagesContainer.appendChild(card);
-    
+    });
   }
 
-
+  function updateDOM(page) {
+    // Get Favorites from localStorage
+    if (localStorage.getItem('nasaFavorites')) {
+      favorites = JSON.parse(localStorage.getItem('nasaFavorites'));
+    }
+    // Reset DOM, Create DOM Nodes, Show Content
+    imagesContainer.textContent = '';
+    createDOMNodes(page);
+   
+  }
 
 
 // Get 10 images from NASA API
