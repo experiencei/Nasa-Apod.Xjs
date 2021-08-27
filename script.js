@@ -113,5 +113,15 @@ function saveFavorite(itemUrl) {
     });
   }
 
+  // Remove item from Favorites
+function removeFavorite(itemUrl) {
+    if (favorites[itemUrl]) {m 
+      delete favorites[itemUrl];
+      // Set Favorites in localStorage
+      localStorage.setItem('nasaFavorites', JSON.stringify(favorites));
+      updateDOM('favorites');
+    }
+  }
+  
   // On Load
 getNasaPictures();
